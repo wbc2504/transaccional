@@ -1,0 +1,428 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "21"
+    field.cattle.io/publicEndpoints: '[{"nodeName":"local:machine-wsw5q","addresses":["10.0.0.140"],"port":8443,"protocol":"TCP","podName":"apps-labo:transaccional-deployment-5d45d65c57-6xzmm","allNodes":false}]'
+    kubectl.kubernetes.io/last-applied-configuration: '{"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app":"transaccional"},"name":"transaccional-deployment","namespace":"apps-labo"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"transaccional"}},"strategy":{"rollingUpdate":{"maxSurge":0,"maxUnavailable":1},"type":"RollingUpdate"},"template":{"metadata":{"labels":{"app":"transaccional"}},"spec":{"affinity":{"nodeAffinity":{"requiredDuringSchedulingIgnoredDuringExecution":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"transaccional","operator":"Exists"},{"key":"env","operator":"In","values":["labo"]}]}]}},"podAntiAffinity":{"requiredDuringSchedulingIgnoredDuringExecution":[{"labelSelector":{"matchExpressions":[{"key":"app","operator":"In","values":["transaccional"]}]},"topologyKey":"kubernetes.io/hostname"}]}},"containers":[{"env":[{"name":"JAVA_OPTS","value":"-Xms6144m
+      -Xmx6144m -XX:NewSize=512m -XX:MaxNewSize=512m -XX:PermSize=1024m -XX:MaxPermSize=2048m
+      -DnamefileLog=/mnt/logs/transaccional/transaccional.log -DmaxLogFileSize=512MB
+      -DmaxLogBackupSize=9 -Dorg.jboss.resolver.warning=true -Dsun.rmi.dgc.client.gcInterval=3600000
+      -Dsun.rmi.dgc.server.gcInterval=3600000 -XX:+UseParNewGC -XX:+UseConcMarkSweepGC
+      -XX:+CMSClassUnloadingEnabled -XX:+CMSParallelRemarkEnabled -Djava.security.egd=file:/dev/./urandom
+      -Dsecurerandom.source=file:/dev/./urandom -Dfile.encoding=ISO-8859-1 -Duser.region=CO
+      -Duser.language=es -Duser.country=CO -Duser.timezone=America/Bogota -Doc4j.userThreads=true
+      -Dstandalone -DcerrarTransacciones=1 -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/mnt/logs/transaccional
+      -Ddomain=arus.com.co -Dhome.sso=https://$(SSODOMAIN)/sso/ -Dauth.sso=https://$(SSODOMAIN)/auth/
+      -Dgestion.sso=https://$(SSODOMAIN)/gestion/ -Dgenerador-planillas.sso=https://$(SSODOMAIN)/generador-planillas/
+      -Dpath.prueba.lectoescritura=/sa_in/reportesTemp/"}],"envFrom":[{"configMapRef":{"name":"general-config","optional":false}},{"configMapRef":{"name":"services-url-configmap","optional":false}},{"secretRef":{"name":"cliente-oauth","optional":false}}],"image":"harbor.da.arus.com.co/arus/transaccional:242","imagePullPolicy":"Always","livenessProbe":{"failureThreshold":3,"httpGet":{"path":"/Web/salud","port":8443,"scheme":"HTTPS"},"initialDelaySeconds":120,"periodSeconds":120,"successThreshold":1,"timeoutSeconds":15},"name":"transaccional-deployment","ports":[{"containerPort":8443,"hostPort":8443,"name":"8443tcp84430","protocol":"TCP"}],"readinessProbe":{"failureThreshold":3,"httpGet":{"path":"/Web/salud","port":8443,"scheme":"HTTPS"},"initialDelaySeconds":120,"periodSeconds":120,"successThreshold":1,"timeoutSeconds":15},"resources":{},"securityContext":{"capabilities":{}},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","volumeMounts":[{"mountPath":"/usr/local/apache2/conf/extra/ssl","name":"suaporte-certs-volume"},{"mountPath":"/sa_in","name":"nfs-sa-in"},{"mountPath":"/sa_out","name":"nfs-sa-out"},{"mountPath":"/procesos","name":"nfs-procesos"},{"mountPath":"/cesantias","name":"nfs-cesantias"},{"mountPath":"/mnt/logs","name":"local-logs"},{"mountPath":"/usr/local/apache2/htdocs","name":"routing-volume"}]}],"dnsPolicy":"ClusterFirst","imagePullSecrets":[{"name":"regcred"}],"restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30,"volumes":[{"name":"suaporte-certs-volume","secret":{"defaultMode":509,"items":[{"key":"transaccional.cer","path":"suaporte.cer"},{"key":"transaccional.key","path":"suaporte.key"},{"key":"transaccionalIntermedio.cer","path":"Intermedio.cer"}],"secretName":"suaporte-certs"}},{"name":"nfs-sa-in","persistentVolumeClaim":{"claimName":"nfs-sa-in-claim"}},{"name":"nfs-sa-out","persistentVolumeClaim":{"claimName":"nfs-sa-out-claim"}},{"name":"nfs-procesos","persistentVolumeClaim":{"claimName":"nfs-procesos-claim"}},{"name":"nfs-cesantias","persistentVolumeClaim":{"claimName":"nfs-cesantias-claim"}},{"name":"local-logs","persistentVolumeClaim":{"claimName":"local-host-logs-claim"}},{"configMap":{"defaultMode":509,"name":"routing-configmap"},"name":"routing-volume"}]}}}}'
+    kubernetes.io/change-cause: kubectl set image deployment/transaccional-deployment
+      transaccional-deployment=harbor.da.arus.com.co/arus/transaccional:259 --insecure-skip-tls-verify=true
+      --namespace=apps-labo --record=true
+  creationTimestamp: null
+  generation: 1
+  labels:
+    app: transaccional
+  managedFields:
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations: {}
+        f:labels:
+          .: {}
+          f:app: {}
+      f:spec:
+        f:progressDeadlineSeconds: {}
+        f:revisionHistoryLimit: {}
+        f:selector: {}
+        f:strategy:
+          f:rollingUpdate:
+            .: {}
+            f:maxSurge: {}
+            f:maxUnavailable: {}
+          f:type: {}
+        f:template:
+          f:metadata:
+            f:labels:
+              .: {}
+              f:app: {}
+          f:spec:
+            f:affinity:
+              .: {}
+              f:nodeAffinity:
+                .: {}
+                f:requiredDuringSchedulingIgnoredDuringExecution:
+                  .: {}
+                  f:nodeSelectorTerms: {}
+              f:podAntiAffinity:
+                .: {}
+                f:requiredDuringSchedulingIgnoredDuringExecution: {}
+            f:containers:
+              k:{"name":"transaccional-deployment"}:
+                .: {}
+                f:env:
+                  .: {}
+                  k:{"name":"JAVA_OPTS"}:
+                    .: {}
+                    f:name: {}
+                    f:value: {}
+                f:envFrom: {}
+                f:imagePullPolicy: {}
+                f:livenessProbe:
+                  .: {}
+                  f:failureThreshold: {}
+                  f:httpGet:
+                    .: {}
+                    f:path: {}
+                    f:port: {}
+                    f:scheme: {}
+                  f:initialDelaySeconds: {}
+                  f:periodSeconds: {}
+                  f:successThreshold: {}
+                  f:timeoutSeconds: {}
+                f:name: {}
+                f:ports:
+                  .: {}
+                  k:{"containerPort":8443,"protocol":"TCP"}:
+                    .: {}
+                    f:containerPort: {}
+                    f:hostPort: {}
+                    f:name: {}
+                    f:protocol: {}
+                f:readinessProbe:
+                  .: {}
+                  f:failureThreshold: {}
+                  f:httpGet:
+                    .: {}
+                    f:path: {}
+                    f:port: {}
+                    f:scheme: {}
+                  f:initialDelaySeconds: {}
+                  f:periodSeconds: {}
+                  f:successThreshold: {}
+                  f:timeoutSeconds: {}
+                f:resources: {}
+                f:securityContext:
+                  .: {}
+                  f:capabilities: {}
+                f:terminationMessagePath: {}
+                f:terminationMessagePolicy: {}
+                f:volumeMounts:
+                  .: {}
+                  k:{"mountPath":"/cesantias"}:
+                    .: {}
+                    f:mountPath: {}
+                    f:name: {}
+                  k:{"mountPath":"/mnt/logs"}:
+                    .: {}
+                    f:mountPath: {}
+                    f:name: {}
+                  k:{"mountPath":"/procesos"}:
+                    .: {}
+                    f:mountPath: {}
+                    f:name: {}
+                  k:{"mountPath":"/sa_in"}:
+                    .: {}
+                    f:mountPath: {}
+                    f:name: {}
+                  k:{"mountPath":"/sa_out"}:
+                    .: {}
+                    f:mountPath: {}
+                    f:name: {}
+                  k:{"mountPath":"/usr/local/apache2/conf/extra/ssl"}:
+                    .: {}
+                    f:mountPath: {}
+                    f:name: {}
+                  k:{"mountPath":"/usr/local/apache2/htdocs"}:
+                    .: {}
+                    f:mountPath: {}
+                    f:name: {}
+            f:dnsPolicy: {}
+            f:imagePullSecrets:
+              .: {}
+              k:{"name":"regcred"}:
+                .: {}
+                f:name: {}
+            f:restartPolicy: {}
+            f:schedulerName: {}
+            f:securityContext: {}
+            f:terminationGracePeriodSeconds: {}
+            f:volumes:
+              .: {}
+              k:{"name":"local-logs"}:
+                .: {}
+                f:name: {}
+                f:persistentVolumeClaim:
+                  .: {}
+                  f:claimName: {}
+              k:{"name":"nfs-cesantias"}:
+                .: {}
+                f:name: {}
+                f:persistentVolumeClaim:
+                  .: {}
+                  f:claimName: {}
+              k:{"name":"nfs-procesos"}:
+                .: {}
+                f:name: {}
+                f:persistentVolumeClaim:
+                  .: {}
+                  f:claimName: {}
+              k:{"name":"nfs-sa-in"}:
+                .: {}
+                f:name: {}
+                f:persistentVolumeClaim:
+                  .: {}
+                  f:claimName: {}
+              k:{"name":"nfs-sa-out"}:
+                .: {}
+                f:name: {}
+                f:persistentVolumeClaim:
+                  .: {}
+                  f:claimName: {}
+              k:{"name":"routing-volume"}:
+                .: {}
+                f:configMap:
+                  .: {}
+                  f:defaultMode: {}
+                  f:name: {}
+                f:name: {}
+              k:{"name":"suaporte-certs-volume"}:
+                .: {}
+                f:name: {}
+                f:secret:
+                  .: {}
+                  f:defaultMode: {}
+                  f:items: {}
+                  f:secretName: {}
+    manager: kubectl-client-side-apply
+    operation: Update
+    time: "2022-10-31T19:35:36Z"
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          f:field.cattle.io/publicEndpoints: {}
+    manager: rancher
+    operation: Update
+    time: "2022-11-01T20:09:19Z"
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          f:kubectl.kubernetes.io/last-applied-configuration: {}
+      f:spec:
+        f:replicas: {}
+        f:template:
+          f:metadata:
+            f:annotations:
+              .: {}
+              f:cattle.io/timestamp: {}
+              f:field.cattle.io/ports: {}
+    manager: Go-http-client
+    operation: Update
+    time: "2023-09-11T16:50:36Z"
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          f:kubernetes.io/change-cause: {}
+      f:spec:
+        f:template:
+          f:spec:
+            f:containers:
+              k:{"name":"transaccional-deployment"}:
+                f:image: {}
+    manager: kubectl-set
+    operation: Update
+    time: "2023-09-13T15:24:27Z"
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          f:deployment.kubernetes.io/revision: {}
+      f:status:
+        f:availableReplicas: {}
+        f:conditions:
+          .: {}
+          k:{"type":"Available"}:
+            .: {}
+            f:lastTransitionTime: {}
+            f:lastUpdateTime: {}
+            f:message: {}
+            f:reason: {}
+            f:status: {}
+            f:type: {}
+          k:{"type":"Progressing"}:
+            .: {}
+            f:lastTransitionTime: {}
+            f:lastUpdateTime: {}
+            f:message: {}
+            f:reason: {}
+            f:status: {}
+            f:type: {}
+        f:observedGeneration: {}
+        f:readyReplicas: {}
+        f:replicas: {}
+        f:updatedReplicas: {}
+    manager: kube-controller-manager
+    operation: Update
+    time: "2023-10-19T05:34:50Z"
+  name: transaccional-deployment
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: transaccional
+  strategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        cattle.io/timestamp: "2023-09-11T18:01:48Z"
+        field.cattle.io/ports: '[[{"containerPort":8443,"dnsName":"transaccional-deployment-hostport","hostPort":8443,"kind":"HostPort","name":"8443tcp84430","protocol":"TCP","sourcePort":8443}]]'
+      creationTimestamp: null
+      labels:
+        app: transaccional
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: transaccional
+                operator: Exists
+              - key: env
+                operator: In
+                values:
+                - labo
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - transaccional
+            topologyKey: kubernetes.io/hostname
+      containers:
+      - env:
+        - name: JAVA_OPTS
+          value: -Xms6144m -Xmx6144m -XX:NewSize=512m -XX:MaxNewSize=512m -XX:PermSize=1024m
+            -XX:MaxPermSize=2048m -DnamefileLog=/mnt/logs/transaccional/transaccional.log
+            -DmaxLogFileSize=512MB -DmaxLogBackupSize=9 -Dorg.jboss.resolver.warning=true
+            -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000
+            -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled
+            -XX:+CMSParallelRemarkEnabled -Djava.security.egd=file:/dev/./urandom
+            -Dsecurerandom.source=file:/dev/./urandom -Dfile.encoding=ISO-8859-1 -Duser.region=CO
+            -Duser.language=es -Duser.country=CO -Duser.timezone=America/Bogota -Doc4j.userThreads=true
+            -Dstandalone -DcerrarTransacciones=1 -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/mnt/logs/transaccional
+            -Ddomain=arus.com.co -Dhome.sso=https://$(SSODOMAIN)/sso/ -Dauth.sso=https://$(SSODOMAIN)/auth/
+            -Dgestion.sso=https://$(SSODOMAIN)/gestion/ -Dgenerador-planillas.sso=https://$(SSODOMAIN)/generador-planillas/
+            -Dpath.prueba.lectoescritura=/sa_in/reportesTemp/
+        envFrom:
+        - configMapRef:
+            name: general-config
+            optional: false
+        - configMapRef:
+            name: services-url-configmap
+            optional: false
+        - secretRef:
+            name: cliente-oauth
+            optional: false
+        image: harbor.da.arus.com.co/arus/transaccional:259
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /Web/salud
+            port: 8443
+            scheme: HTTPS
+          initialDelaySeconds: 120
+          periodSeconds: 120
+          successThreshold: 1
+          timeoutSeconds: 15
+        name: transaccional-deployment
+        ports:
+        - containerPort: 8443
+          hostPort: 8443
+          name: 8443tcp84430
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /Web/salud
+            port: 8443
+            scheme: HTTPS
+          initialDelaySeconds: 120
+          periodSeconds: 120
+          successThreshold: 1
+          timeoutSeconds: 15
+        resources: {}
+        securityContext:
+          capabilities: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /usr/local/apache2/conf/extra/ssl
+          name: suaporte-certs-volume
+        - mountPath: /sa_in
+          name: nfs-sa-in
+        - mountPath: /sa_out
+          name: nfs-sa-out
+        - mountPath: /procesos
+          name: nfs-procesos
+        - mountPath: /cesantias
+          name: nfs-cesantias
+        - mountPath: /mnt/logs
+          name: local-logs
+        - mountPath: /usr/local/apache2/htdocs
+          name: routing-volume
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: regcred
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: suaporte-certs-volume
+        secret:
+          defaultMode: 509
+          items:
+          - key: transaccional.cer
+            path: suaporte.cer
+          - key: transaccional.key
+            path: suaporte.key
+          - key: transaccionalIntermedio.cer
+            path: Intermedio.cer
+          secretName: suaporte-certs
+      - name: nfs-sa-in
+        persistentVolumeClaim:
+          claimName: nfs-sa-in-claim
+      - name: nfs-sa-out
+        persistentVolumeClaim:
+          claimName: nfs-sa-out-claim
+      - name: nfs-procesos
+        persistentVolumeClaim:
+          claimName: nfs-procesos-claim
+      - name: nfs-cesantias
+        persistentVolumeClaim:
+          claimName: nfs-cesantias-claim
+      - name: local-logs
+        persistentVolumeClaim:
+          claimName: local-host-logs-claim
+      - configMap:
+          defaultMode: 509
+          name: routing-configmap
+        name: routing-volume
+status: {}
