@@ -1,0 +1,328 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "20"
+    kubectl.kubernetes.io/last-applied-configuration: '{"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"deployment.kubernetes.io/revision":"12","kubernetes.io/change-cause":"kubectl
+      set image deployment/micro-deployment micro-deployment=harbor.da.arus.com.co/arus/micro:laboratorio
+      --insecure-skip-tls-verify=true --namespace=apps-labo --record=true"},"creationTimestamp":"2022-04-22T14:33:13Z","generation":86,"labels":{"app":"micro"},"managedFields":[{"apiVersion":"apps/v1","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:annotations":{".":{},"f:kubectl.kubernetes.io/last-applied-configuration":{}},"f:labels":{".":{},"f:app":{}}},"f:spec":{"f:progressDeadlineSeconds":{},"f:revisionHistoryLimit":{},"f:selector":{},"f:strategy":{"f:rollingUpdate":{".":{},"f:maxSurge":{},"f:maxUnavailable":{}},"f:type":{}},"f:template":{"f:metadata":{"f:annotations":{".":{},"f:cattle.io/timestamp":{},"f:field.cattle.io/ports":{}},"f:labels":{".":{},"f:app":{}}},"f:spec":{"f:affinity":{".":{},"f:nodeAffinity":{".":{},"f:requiredDuringSchedulingIgnoredDuringExecution":{".":{},"f:nodeSelectorTerms":{}}},"f:podAntiAffinity":{".":{},"f:requiredDuringSchedulingIgnoredDuringExecution":{}}},"f:containers":{"k:{\"name\":\"micro-deployment\"}":{".":{},"f:env":{".":{},"k:{\"name\":\"JAVA_OPTS\"}":{".":{},"f:name":{},"f:value":{}}},"f:envFrom":{},"f:imagePullPolicy":{},"f:name":{},"f:resources":{".":{},"f:limits":{".":{},"f:cpu":{},"f:memory":{}},"f:requests":{".":{},"f:cpu":{},"f:memory":{}}},"f:securityContext":{".":{},"f:capabilities":{".":{},"f:add":{}}},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{},"f:volumeMounts":{".":{},"k:{\"mountPath\":\"/mnt/logs\"}":{".":{},"f:mountPath":{},"f:name":{}},"k:{\"mountPath\":\"/procesos\"}":{".":{},"f:mountPath":{},"f:name":{}},"k:{\"mountPath\":\"/sa_in\"}":{".":{},"f:mountPath":{},"f:name":{}},"k:{\"mountPath\":\"/sa_out\"}":{".":{},"f:mountPath":{},"f:name":{}}}}},"f:dnsPolicy":{},"f:imagePullSecrets":{".":{},"k:{\"name\":\"regcred\"}":{".":{},"f:name":{}}},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{},"f:terminationGracePeriodSeconds":{},"f:volumes":{".":{},"k:{\"name\":\"local-logs\"}":{".":{},"f:name":{},"f:persistentVolumeClaim":{".":{},"f:claimName":{}}},"k:{\"name\":\"nfs-procesos\"}":{".":{},"f:name":{},"f:persistentVolumeClaim":{".":{},"f:claimName":{}}},"k:{\"name\":\"nfs-sa-in\"}":{".":{},"f:name":{},"f:persistentVolumeClaim":{".":{},"f:claimName":{}}},"k:{\"name\":\"nfs-sa-out\"}":{".":{},"f:name":{},"f:persistentVolumeClaim":{".":{},"f:claimName":{}}}}}}}},"manager":"kubectl-client-side-apply","operation":"Update","time":"2022-04-22T14:33:13Z"},{"apiVersion":"apps/v1","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:annotations":{"f:kubernetes.io/change-cause":{}}},"f:spec":{"f:template":{"f:spec":{"f:containers":{"k:{\"name\":\"micro-deployment\"}":{"f:image":{}}}}}}},"manager":"kubectl-set","operation":"Update","time":"2022-04-25T17:38:16Z"},{"apiVersion":"apps/v1","fieldsType":"FieldsV1","fieldsV1":{"f:spec":{"f:replicas":{}}},"manager":"Go-http-client","operation":"Update","time":"2022-10-05T00:15:20Z"},{"apiVersion":"apps/v1","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:annotations":{"f:deployment.kubernetes.io/revision":{}}},"f:status":{"f:availableReplicas":{},"f:conditions":{".":{},"k:{\"type\":\"Available\"}":{".":{},"f:lastTransitionTime":{},"f:lastUpdateTime":{},"f:message":{},"f:reason":{},"f:status":{},"f:type":{}},"k:{\"type\":\"Progressing\"}":{".":{},"f:lastTransitionTime":{},"f:lastUpdateTime":{},"f:message":{},"f:reason":{},"f:status":{},"f:type":{}}},"f:observedGeneration":{},"f:readyReplicas":{},"f:replicas":{},"f:updatedReplicas":{}}},"manager":"kube-controller-manager","operation":"Update","time":"2022-10-27T18:22:54Z"}],"name":"micro-deployment","namespace":"apps-labo","selfLink":"/apis/apps/v1/namespaces/apps-labo/deployments/micro-deployment"},"spec":{"progressDeadlineSeconds":600,"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app":"micro"}},"strategy":{"rollingUpdate":{"maxSurge":0,"maxUnavailable":1},"type":"RollingUpdate"},"template":{"metadata":{"annotations":{"cattle.io/timestamp":"2021-09-19T17:42:39Z","field.cattle.io/ports":"[[]]"},"creationTimestamp":null,"labels":{"app":"micro"}},"spec":{"affinity":{"nodeAffinity":{"requiredDuringSchedulingIgnoredDuringExecution":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"micro","operator":"Exists"},{"key":"env","operator":"In","values":["labo"]}]}]}},"podAntiAffinity":{"requiredDuringSchedulingIgnoredDuringExecution":[{"labelSelector":{"matchExpressions":[{"key":"app","operator":"In","values":["micro"]}]},"topologyKey":"kubernetes.io/hostname"}]}},"containers":[{"env":[{"name":"JAVA_OPTS","value":"-Xmx1024m
+      -Xms1024m -XX:MaxPermSize=512m -XX:PermSize=512m -DnamefileLog=/mnt/logs/micro/micro1.log
+      -Dfile.encoding=ISO-8859-1 -Duser.region=CO -Duser.language=es -Duser.country=CO
+      -Duser.timezone=America/Bogota -Doc4j.userThreads=true -Dhilos=5 -Dstandalone
+      -Djava.security.egd=file:/dev/./urandom -Dsecurerandom.source=file:/dev/./urandom
+      -Dlog4j.configuration=file:/sa_in/propiedades/simple/labo/log4j/micro/log4j.properties
+      -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/mnt/logs/micro -DcerrarTransacciones=1"}],"envFrom":[{"configMapRef":{"name":"general-config","optional":false}},{"configMapRef":{"name":"services-url-configmap","optional":false}},{"secretRef":{"name":"cliente-oauth","optional":false}}],"image":"harbor.da.arus.com.co/arus/micro:laboratorio","imagePullPolicy":"Always","name":"micro-deployment","resources":{"limits":{"cpu":"4","memory":"2Gi"},"requests":{"cpu":"1","memory":"1Gi"}},"securityContext":{"capabilities":{"add":["IPC_LOCK","SYS_RESOURCE"]}},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","volumeMounts":[{"mountPath":"/sa_in","name":"nfs-sa-in"},{"mountPath":"/sa_out","name":"nfs-sa-out"},{"mountPath":"/procesos","name":"nfs-procesos"},{"mountPath":"/mnt/logs","name":"local-logs"}]}],"dnsPolicy":"ClusterFirst","imagePullSecrets":[{"name":"regcred"}],"restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30,"volumes":[{"name":"nfs-sa-in","persistentVolumeClaim":{"claimName":"nfs-sa-in-claim"}},{"name":"nfs-sa-out","persistentVolumeClaim":{"claimName":"nfs-sa-out-claim"}},{"name":"nfs-procesos","persistentVolumeClaim":{"claimName":"nfs-procesos-claim"}},{"name":"local-logs","persistentVolumeClaim":{"claimName":"local-host-logs-claim"}}]}}}}'
+    kubernetes.io/change-cause: kubectl set image deployment/micro-deployment micro-deployment=harbor.da.arus.com.co/arus/micro:259
+      --insecure-skip-tls-verify=true --namespace=apps-labo --record=true
+  creationTimestamp: null
+  generation: 1
+  labels:
+    app: micro
+  managedFields:
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations: {}
+        f:labels:
+          .: {}
+          f:app: {}
+      f:spec:
+        f:progressDeadlineSeconds: {}
+        f:revisionHistoryLimit: {}
+        f:selector: {}
+        f:strategy:
+          f:rollingUpdate:
+            .: {}
+            f:maxSurge: {}
+            f:maxUnavailable: {}
+          f:type: {}
+        f:template:
+          f:metadata:
+            f:annotations:
+              .: {}
+              f:field.cattle.io/ports: {}
+            f:labels:
+              .: {}
+              f:app: {}
+          f:spec:
+            f:affinity:
+              .: {}
+              f:nodeAffinity:
+                .: {}
+                f:requiredDuringSchedulingIgnoredDuringExecution:
+                  .: {}
+                  f:nodeSelectorTerms: {}
+              f:podAntiAffinity:
+                .: {}
+                f:requiredDuringSchedulingIgnoredDuringExecution: {}
+            f:containers:
+              k:{"name":"micro-deployment"}:
+                .: {}
+                f:env:
+                  .: {}
+                  k:{"name":"JAVA_OPTS"}:
+                    .: {}
+                    f:name: {}
+                f:envFrom: {}
+                f:imagePullPolicy: {}
+                f:name: {}
+                f:resources:
+                  .: {}
+                  f:limits:
+                    .: {}
+                    f:cpu: {}
+                    f:memory: {}
+                  f:requests:
+                    .: {}
+                    f:cpu: {}
+                    f:memory: {}
+                f:securityContext:
+                  .: {}
+                  f:capabilities:
+                    .: {}
+                    f:add: {}
+                f:terminationMessagePath: {}
+                f:terminationMessagePolicy: {}
+                f:volumeMounts:
+                  .: {}
+                  k:{"mountPath":"/mnt/logs"}:
+                    .: {}
+                    f:mountPath: {}
+                    f:name: {}
+                  k:{"mountPath":"/procesos"}:
+                    .: {}
+                    f:mountPath: {}
+                    f:name: {}
+                  k:{"mountPath":"/sa_in"}:
+                    .: {}
+                    f:mountPath: {}
+                    f:name: {}
+                  k:{"mountPath":"/sa_out"}:
+                    .: {}
+                    f:mountPath: {}
+                    f:name: {}
+            f:dnsPolicy: {}
+            f:imagePullSecrets:
+              .: {}
+              k:{"name":"regcred"}:
+                .: {}
+                f:name: {}
+            f:restartPolicy: {}
+            f:schedulerName: {}
+            f:securityContext: {}
+            f:terminationGracePeriodSeconds: {}
+            f:volumes:
+              .: {}
+              k:{"name":"local-logs"}:
+                .: {}
+                f:name: {}
+                f:persistentVolumeClaim:
+                  .: {}
+                  f:claimName: {}
+              k:{"name":"nfs-procesos"}:
+                .: {}
+                f:name: {}
+                f:persistentVolumeClaim:
+                  .: {}
+                  f:claimName: {}
+              k:{"name":"nfs-sa-in"}:
+                .: {}
+                f:name: {}
+                f:persistentVolumeClaim:
+                  .: {}
+                  f:claimName: {}
+              k:{"name":"nfs-sa-out"}:
+                .: {}
+                f:name: {}
+                f:persistentVolumeClaim:
+                  .: {}
+                  f:claimName: {}
+    manager: kubectl-client-side-apply
+    operation: Update
+    time: "2022-11-01T19:20:36Z"
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:spec:
+        f:template:
+          f:spec:
+            f:containers:
+              k:{"name":"micro-deployment"}:
+                f:env:
+                  k:{"name":"JAVA_OPTS"}:
+                    f:value: {}
+    manager: Mozilla
+    operation: Update
+    time: "2023-02-16T14:42:21Z"
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          f:kubectl.kubernetes.io/last-applied-configuration: {}
+      f:spec:
+        f:replicas: {}
+        f:template:
+          f:metadata:
+            f:annotations:
+              f:cattle.io/timestamp: {}
+    manager: Go-http-client
+    operation: Update
+    time: "2023-09-11T16:47:15Z"
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          f:kubernetes.io/change-cause: {}
+      f:spec:
+        f:template:
+          f:spec:
+            f:containers:
+              k:{"name":"micro-deployment"}:
+                f:image: {}
+    manager: kubectl-set
+    operation: Update
+    time: "2023-09-13T15:24:31Z"
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          f:deployment.kubernetes.io/revision: {}
+      f:status:
+        f:availableReplicas: {}
+        f:conditions:
+          .: {}
+          k:{"type":"Available"}:
+            .: {}
+            f:lastTransitionTime: {}
+            f:lastUpdateTime: {}
+            f:message: {}
+            f:reason: {}
+            f:status: {}
+            f:type: {}
+          k:{"type":"Progressing"}:
+            .: {}
+            f:lastTransitionTime: {}
+            f:lastUpdateTime: {}
+            f:message: {}
+            f:reason: {}
+            f:status: {}
+            f:type: {}
+        f:observedGeneration: {}
+        f:readyReplicas: {}
+        f:replicas: {}
+        f:updatedReplicas: {}
+    manager: kube-controller-manager
+    operation: Update
+    time: "2023-10-19T05:31:51Z"
+  name: micro-deployment
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: micro
+  strategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        cattle.io/timestamp: "2023-09-11T18:01:22Z"
+        field.cattle.io/ports: '[[]]'
+      creationTimestamp: null
+      labels:
+        app: micro
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: micro
+                operator: Exists
+              - key: env
+                operator: In
+                values:
+                - labo
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - micro
+            topologyKey: kubernetes.io/hostname
+      containers:
+      - env:
+        - name: JAVA_OPTS
+          value: -Xmx1024m -Xms1024m -XX:MaxPermSize=512m -XX:PermSize=512m -DnamefileLog=/mnt/logs/micro/micro1.log
+            -Dfile.encoding=ISO-8859-1 -Duser.region=CO -Duser.language=es -Duser.country=CO
+            -Duser.timezone=America/Bogota -Doc4j.userThreads=true -Dhilos=5 -Dstandalone
+            -Djava.security.egd=file:/dev/./urandom -Dsecurerandom.source=file:/dev/./urandom
+            -Dlog4j.configuration=file:/sa_in/propiedades/arus/labo/log4j/micro/log4j.properties
+            -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/mnt/logs/micro -DcerrarTransacciones=1
+        envFrom:
+        - configMapRef:
+            name: general-config
+            optional: false
+        - configMapRef:
+            name: services-url-configmap
+            optional: false
+        - secretRef:
+            name: cliente-oauth
+            optional: false
+        image: harbor.da.arus.com.co/arus/micro:259
+        imagePullPolicy: Always
+        name: micro-deployment
+        resources:
+          limits:
+            cpu: "4"
+            memory: 2Gi
+          requests:
+            cpu: "1"
+            memory: 1Gi
+        securityContext:
+          capabilities:
+            add:
+            - IPC_LOCK
+            - SYS_RESOURCE
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /sa_in
+          name: nfs-sa-in
+        - mountPath: /sa_out
+          name: nfs-sa-out
+        - mountPath: /procesos
+          name: nfs-procesos
+        - mountPath: /mnt/logs
+          name: local-logs
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: regcred
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: nfs-sa-in
+        persistentVolumeClaim:
+          claimName: nfs-sa-in-claim
+      - name: nfs-sa-out
+        persistentVolumeClaim:
+          claimName: nfs-sa-out-claim
+      - name: nfs-procesos
+        persistentVolumeClaim:
+          claimName: nfs-procesos-claim
+      - name: local-logs
+        persistentVolumeClaim:
+          claimName: local-host-logs-claim
+status: {}
